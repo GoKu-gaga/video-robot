@@ -69,14 +69,15 @@ app.post('/', xmlParser({
 
   const resBody = `
     <xml>
-      <ToUserName><![CDATA[${fromusername}]></ToUserName>
-      <FromUserName><![CDATA[${tousername}]></FromUserName>
-      <CreateTime>${Date.now()}</CreateTime>
-      <MsgType><![CDATA[text]></MsgType>
-      <Content><![CDATA[${retContent}]></Content>
+      <ToUserName><![CDATA[${fromusername}]]></ToUserName>
+      <FromUserName><![CDATA[${tousername}]]></FromUserName>
+      <CreateTime>${parseInt(Date.now() / 1000)}</CreateTime>
+      <MsgType><![CDATA[text]]></MsgType>
+      <Content><![CDATA[${retContent}]]></Content>
     </xml>
   `
   req.logs.log(`POST response body: ${resBody}`)
+  res.set('Content-Type', 'text/xml')
   res.send(resBody)
   req.logs.log('POST request end.')
 })
