@@ -52,16 +52,14 @@ app.post('/', xmlParser({
   } = req.body.xml
 
   const result = await axios('https://happyukgo.com/api/video/?cached&lang=ch&hash=387af990271603ad18bde53048cce322&video=' + content).catch(err => err)
-
   const data = result.data
-  console.log(data)
 
   let retContent = ''
-  if (Array.isArray(data.urls)) {
+  if (data && Array.isArray(data.urls)) {
     const urls = data.urls
     const len = urls.length
     retContent = `视频片段 1： ${urls[0]} \n\n 还有其它 ${len - 1} 段视频片段,请到 https://weibomiaopai.com 获取完整列表!`
-  } else if (data.url) {
+  } else if (data && data.url) {
     retContent = `视频地址: ${data.url}`
   } else {
     retContent = '无法下载视频, 请到官网: https://weibomiaopai.com';
